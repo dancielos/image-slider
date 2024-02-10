@@ -6,9 +6,13 @@ export default function ThumbnailItem({ image }: { image: string }) {
 			<Image
 				src={image}
 				alt='dog image'
-				fill
-				objectFit='cover'
+				style={{
+					objectFit: 'cover',
+				}}
+				quality={30}
 				className='rounded-[1px]'
+				fill
+				sizes='25vw'
 			/>
 		</li>
 	);

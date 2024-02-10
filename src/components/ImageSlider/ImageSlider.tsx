@@ -23,9 +23,15 @@ export default function ImageSlider() {
 				<Image
 					src={images[0]}
 					alt='dog image'
-					fill
-					objectFit='cover'
+					width={720}
+					height={360}
+					// fill
+					// sizes='(max-width: 600px) 100%'
+					style={{
+						objectFit: 'cover',
+					}}
 					className='rounded-[1px]'
+					priority
 				/>
 				<div className='flex justify-between p-3 items-start'>
 					<ImageIndex />
