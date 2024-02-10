@@ -17,15 +17,11 @@
 }
 
 body {
-	background-color: grey !important;
+	background-color: #fff !important;
 }
 
 @layer utilities {
 	.text-balance {
 		text-wrap: balance;
 	}
-}
-
-* {
-	transition-duration: 0.3s;
 }

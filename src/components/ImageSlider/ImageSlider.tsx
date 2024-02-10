@@ -1,9 +1,10 @@
 import Image from 'next/image';
 import './ImageSlider.css';
 
-import leftIcon from './icons/chevron-left.svg';
-import rightIcon from './icons/chevron-right.svg';
-import fullScreenIcon from './icons/fullscreen.svg';
+import ImageIndex from './ImageIndex';
+import FullscreenButton from './controls/FullscreenButton';
+import Thumbnails from './thumbnails/Thumbnails';
+import NavControls from './controls/NavControls';
 
 const images = [
 	'https://image-slider-sample.s3.ca-central-1.amazonaws.com/golden-retriever-puppies-1280-720px.jpg',
@@ -17,8 +18,8 @@ const images = [
 
 export default function ImageSlider() {
 	return (
-		<div className='p-4'>
-			<div className='container relative mb-2 h-[360px] overflow-hidden'>
+		<div className='p-4 flex flex-col gap-2'>
+			<div className='container relative h-[360px] overflow-hidden'>
 				<Image
 					src={images[0]}
 					alt='dog image'
@@ -27,58 +28,15 @@ export default function ImageSlider() {
 					className='rounded-[1px]'
 				/>
 				<div className='flex justify-between p-3 items-start'>
-					<span className='relative z-30 py-1 px-2 rounded-[1px] bg-slate-950/50 text-white text-xs'>
-						1 / 6
-					</span>
-					<button className='relative z-30 bg-slate-950/50 p-2 rounded-[1px]'>
-						<Image
-							src={fullScreenIcon}
-							alt='enter full screen'
-							className='w-4 fill-white'
-							width={24}
-							height={24}
-						/>
-					</button>
+					<ImageIndex />
+					<FullscreenButton />
 				</div>
-				{/* <div className='container absolute h-full w-11/12 z-10 mx-auto left-1/2 transform -translate-x-1/2'></div> */}
-
-				<div className='absolute top-1/2 left-0 transform -translate-y-1/2 w-full z-20 h-full'>
-					<div className='flex justify-between h-full'>
-						<button className='px-2 hover:bg-slate-800/30'>
-							<Image
-								src={leftIcon}
-								alt='image slider left nav'
-								className='w-8'
-								width={50}
-								height={50}
-							/>
-						</button>
-						<button className='px-2 hover:bg-slate-800/30'>
-							<Image
-								src={rightIcon}
-								alt='image slider right nav'
-								className='w-8'
-								width={50}
-								height={50}
-							/>
-						</button>
-					</div>
+				<div className='absolute top-1/2 transform -translate-y-1/2 w-full z-20 h-full'>
+					<NavControls />
 				</div>
 			</div>
-			<div className='container relative h-1/4 '>
-				<ul className='flex flex-row gap-2'>
-					{images.map((image) => (
-						<li key={image} className='relative h-24 w-24'>
-							<Image
-								src={image}
-								alt='dog image'
-								fill
-								objectFit='cover'
-								className='rounded-[1px]'
-							/>
-						</li>
-					))}
-				</ul>
+			<div className='container relative h-1/4 overflow-scroll'>
+				<Thumbnails images={images} />
 			</div>
 		</div>
 	);
