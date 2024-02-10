@@ -2,8 +2,25 @@ import ImageSlider from '@/components/ImageSlider/ImageSlider';
 
 export default function Home() {
 	return (
-		<main className='flex min-h-screen flex-col items-center justify-between p-24'>
-			<ImageSlider />
-		</main>
+		<>
+			<h1
+				style={{
+					fontSize: '1.6rem',
+					textAlign: 'center',
+				}}
+			>
+				A sample image slider
+			</h1>
+			<main
+				style={{
+					width: '720px',
+					// height: '480px',
+					// backgroundColor: '#e5dbff',
+					margin: '72px auto',
+				}}
+			>
+				<ImageSlider />
+			</main>
+		</>
 	);
 }
