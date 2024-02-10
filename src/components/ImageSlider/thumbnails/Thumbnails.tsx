@@ -1,6 +1,7 @@
+import { TypeImage } from '../types/TypeImage';
 import ThumbnailItem from './ThumbnailItem';
 
-export default function Thumbnails({ images }: { images: string[] }) {
+export default function Thumbnails({ images }: { images: TypeImage[] }) {
 	return (
 		<ul
 			className={`flex flex-row gap-2 ${
@@ -8,7 +9,7 @@ export default function Thumbnails({ images }: { images: string[] }) {
 			}`}
 		>
 			{images.map((image) => (
-				<ThumbnailItem key={image} image={image} />
+				<ThumbnailItem key={image.src} image={image} />
 			))}
 		</ul>
 	);
