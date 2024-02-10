@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# React Image Gallery Slider
 
-## Getting Started
+This is a simple project of a React image gallery slider component. Currently, the only way to use this project is to copy and paste the `ImageSlider` component itself. It requires Next.js and Tailwind CSS.
 
-First, run the development server:
+**Note:** I plan on turning this into a package you can easily use and customize, but right now I don't have the time.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Installation
+
+1. Clone this repository:
+
+   ```bash
+   git clone https://github.com/your-username/react-image-gallery-slider.git
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+## Usage
+
+Copy and paste the `ImageSlider` component into your React project.
+
+```jsx
+// Example usage in your React component
+import ImageSlider from './path/to/ImageSlider';
+
+function App() {
+	return (
+		<div className='App'>
+			<ImageSlider />
+		</div>
+	);
+}
+
+export default App;
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Simple and easy-to-use image gallery slider component.
+- Utilizes Next.js for server-side rendering and Tailwind CSS for styling.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## TODO
 
-## Learn More
+- [ ] Apply the accessibility labels.
+- [ ] Add bullet points for each image in the slider.
+- [ ] Add customization options (a lot of work).
+- [ ] Publish as a package for easy installation and usage.
 
-To learn more about Next.js, take a look at the following resources:
+## Contributing
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Contributions are welcome! Feel free to open an issue or submit a pull request.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## License
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
