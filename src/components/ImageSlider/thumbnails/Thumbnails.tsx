@@ -10,21 +10,19 @@ export default function Thumbnails({ images }: { images: TypeImage[] }) {
 			}`}
 		>
 			{images.map((image, i) => (
-				<li key={image.src} className='relative h-24 min-w-24'>
-					<ThumbnailLink i={i}>
-						<Image
-							src={image.src}
-							alt={image.alt}
-							style={{
-								objectFit: 'cover',
-							}}
-							quality={30}
-							className='rounded-[1px]'
-							fill
-							sizes='(min-width: 0px) 25vw'
-						/>
-					</ThumbnailLink>
-				</li>
+				<ThumbnailLink key={image.alt + i} i={i}>
+					<Image
+						src={image.src}
+						alt={image.alt}
+						style={{
+							objectFit: 'cover',
+						}}
+						quality={30}
+						className='rounded-[1px]'
+						fill
+						sizes='(min-width: 0px) 25vw'
+					/>
+				</ThumbnailLink>
 			))}
 		</ul>
 	);

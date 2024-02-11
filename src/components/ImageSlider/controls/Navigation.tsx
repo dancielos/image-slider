@@ -2,7 +2,7 @@
 
 import { ReactNode } from 'react';
 import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../redux/store';
+import { AppDispatch, useAppSelector } from '../redux/store';
 import { goToNext, goToPrev } from '../redux/imageSliderSlice';
 
 type Direction = 'left' | 'right';
@@ -19,6 +19,7 @@ export default function Navigation({
 		if (directionParam === 'left') {
 			dispatch(goToPrev());
 		} else dispatch(goToNext());
+		// console.log({ currentIndex });
 	}
 	return (
 		<button

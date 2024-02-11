@@ -9,28 +9,44 @@ import { AppDispatch, useAppSelector } from '../redux/store';
 import { setLen } from '../redux/imageSliderSlice';
 
 export default function ImageGallery({ images }: { images: TypeImage[] }) {
-	const imagesRef = useRef<HTMLDivElement[]>([]);
-	imagesRef.current = [];
+	const imagesRef = useRef<Map<number, HTMLDivElement>>();
+	// imagesRef.current = [];
 
 	const dispatch = useDispatch<AppDispatch>();
 	const currentIndex = useAppSelector(
 		(state) => state.imageSliderReducer.currentIndex
 	);
 
+	// console.log(currentIndex);
+
 	useEffect(() => {
+		console.log('1ST use effect being called');
 		// initialize the slice length for computation later
 		dispatch(setLen(images.length));
 	}, [images]);
 
 	useEffect(() => {
-		imagesRef.current[currentIndex].scrollIntoView({ behavior: 'smooth' });
+		console.log('2ND useEffect');
+		// function scrollTo(id: number) {
+		const map = getMap();
+		const node = map.get(currentIndex);
+		console.log(node);
+		node?.scrollIntoView({
+			behavior: 'smooth',
+			block: 'nearest',
+			inline: 'center',
+		});
+		// }
+		// 	console.log('2ND` use effect invoked');
+
+		// imagesRef.current[currentIndex].scrollIntoView({ behavior: 'smooth' });
 	}, [currentIndex]);
 
-	function addToRefs(e: HTMLDivElement) {
-		if (e && !imagesRef.current.includes(e)) {
-			imagesRef.current.push(e);
+	function getMap() {
+		if (!imagesRef.current) {
+			imagesRef.current = new Map();
 		}
-		// console.log(imagesRef.current);
+		return imagesRef.current;
 	}
 	return (
 		<div
@@ -43,7 +59,14 @@ export default function ImageGallery({ images }: { images: TypeImage[] }) {
 					image={image}
 					currentIndex={i}
 					id={`#image-${i}`}
-					ref={addToRefs}
+					ref={(node) => {
+						const map = getMap();
+						if (node) {
+							map.set(i, node);
+						} else {
+							map.delete(i);
+						}
+					}}
 				/>
 			))}
 		</div>
