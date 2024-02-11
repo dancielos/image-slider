@@ -1,22 +1,31 @@
-import Image from 'next/image';
+'use client';
 
-import leftIcon from '../icons/chevron-left.svg';
-import rightIcon from '../icons/chevron-right.svg';
+import { ReactNode } from 'react';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../redux/store';
+import { goToNext, goToPrev } from '../redux/imageSliderSlice';
+
+type Direction = 'left' | 'right';
 
 export default function Navigation({
 	direction,
+	children,
 }: {
-	direction: 'left' | 'right';
+	direction: Direction;
+	children: ReactNode;
 }) {
+	const dispatch = useDispatch<AppDispatch>();
+	function handleNavClick(directionParam: Direction) {
+		if (directionParam === 'left') {
+			dispatch(goToPrev());
+		} else dispatch(goToNext());
+	}
 	return (
-		<button className='px-2 hover:bg-slate-800/30 duration-300'>
-			<Image
-				src={direction === 'left' ? leftIcon : rightIcon}
-				alt={`image slider ${direction} nav`}
-				className='w-8'
-				width={50}
-				height={50}
-			/>
+		<button
+			className='px-2 hover:bg-slate-800/30 duration-300'
+			onClick={() => handleNavClick(direction)}
+		>
+			{children}
 		</button>
 	);
 }

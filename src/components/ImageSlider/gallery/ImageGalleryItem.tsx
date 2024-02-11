@@ -22,7 +22,7 @@ export default function ImageGalleryItem({
 					// width={720}
 					// // height={360}
 					fill
-					sizes='10vw'
+					sizes='(min-width: 0px) 10vw'
 					quality={1}
 					style={{
 						objectFit: 'cover',
@@ -37,7 +37,7 @@ export default function ImageGalleryItem({
 					// width={720}
 					// height={360}
 					fill
-					sizes='100vw'
+					sizes='(min-width: 0px) 100vw'
 					style={{
 						objectFit: 'contain',
 						// objectPosition: 'center',

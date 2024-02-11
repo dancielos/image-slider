@@ -35,7 +35,7 @@ export default function ThumbnailItem({
 					quality={30}
 					className='rounded-[1px]'
 					fill
-					sizes='25vw'
+					sizes='(min-width: 0px) 25vw'
 				/>
 			</Link>
 		</li>
