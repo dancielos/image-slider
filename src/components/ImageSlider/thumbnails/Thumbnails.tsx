@@ -1,5 +1,6 @@
+import Image from 'next/image';
 import { TypeImage } from '../types/TypeImage';
-import ThumbnailItem from './ThumbnailItem';
+import ThumbnailLink from './ThumbnailLink';
 
 export default function Thumbnails({ images }: { images: TypeImage[] }) {
 	return (
@@ -9,7 +10,21 @@ export default function Thumbnails({ images }: { images: TypeImage[] }) {
 			}`}
 		>
 			{images.map((image, i) => (
-				<ThumbnailItem key={image.src} image={image} href={`#image-${i}`} />
+				<li key={image.src} className='relative h-24 min-w-24'>
+					<ThumbnailLink i={i}>
+						<Image
+							src={image.src}
+							alt={image.alt}
+							style={{
+								objectFit: 'cover',
+							}}
+							quality={30}
+							className='rounded-[1px]'
+							fill
+							sizes='(min-width: 0px) 25vw'
+						/>
+					</ThumbnailLink>
+				</li>
 			))}
 		</ul>
 	);
