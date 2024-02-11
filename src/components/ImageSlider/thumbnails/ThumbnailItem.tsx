@@ -12,7 +12,7 @@ export default function ThumbnailItem({
 	image: TypeImage;
 	href: Url;
 }) {
-	function handlerTest(href: Url) {
+	function handleThumbnailClick(href: Url) {
 		const el = document.getElementById(String(href));
 
 		el?.scrollIntoView();
@@ -24,7 +24,7 @@ export default function ThumbnailItem({
 				href={href}
 				className='block relative h-full w-full'
 				scroll={false}
-				onClick={(e) => handlerTest(href)}
+				onClick={() => handleThumbnailClick(href)}
 			>
 				<Image
 					src={image.src}
