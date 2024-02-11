@@ -1,36 +1,19 @@
-'use client';
-
-import { useEffect, useRef } from 'react';
+import { ForwardedRef, Ref, forwardRef, useEffect, useRef } from 'react';
 import { TypeImage } from '../types/TypeImage';
 import ImageGalleryItem from './ImageGalleryItem';
-import { useDispatch } from 'react-redux';
-import { AppDispatch, useAppSelector } from '../redux/store';
 
-import { setLen } from '../redux/imageSliderSlice';
-
-export default function ImageGallery({ images }: { images: TypeImage[] }) {
-	const imagesRef = useRef<Map<number, HTMLDivElement>>();
-	// imagesRef.current = [];
-
-	const dispatch = useDispatch<AppDispatch>();
-	const currentIndex = useAppSelector(
-		(state) => state.imageSliderReducer.currentIndex
-	);
-
+const ImageGallery = forwardRef(function ImageGallery(
+	{ images }: { images: TypeImage[] },
+	ref: ForwardedRef<HTMLDivElement>
+) {
 	// console.log(currentIndex);
 
 	useEffect(() => {
-		console.log('1ST use effect being called');
-		// initialize the slice length for computation later
-		dispatch(setLen(images.length));
-	}, [images]);
-
-	useEffect(() => {
-		console.log('2ND useEffect');
+		// console.log('2ND useEffect');
 		// function scrollTo(id: number) {
 		const map = getMap();
 		const node = map.get(currentIndex);
-		console.log(node);
+		// console.log(node);
 		node?.scrollIntoView({
 			behavior: 'smooth',
 			block: 'nearest',
@@ -48,6 +31,7 @@ export default function ImageGallery({ images }: { images: TypeImage[] }) {
 		}
 		return imagesRef.current;
 	}
+
 	return (
 		<div
 			className='flex flex-row h-full overflow-x-auto snap-x snap-mandatory scroll-smooth'
@@ -71,4 +55,6 @@ export default function ImageGallery({ images }: { images: TypeImage[] }) {
 			))}
 		</div>
 	);
-}
+});
+
+export default ImageGallery;
