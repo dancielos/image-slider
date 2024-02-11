@@ -1,10 +1,21 @@
 import Image from 'next/image';
 import { TypeImage } from '../types/TypeImage';
 
-export default function ImageGalleryItem({ image }: { image: TypeImage }) {
+export default function ImageGalleryItem({
+	image,
+	currentIndex,
+	id,
+}: {
+	image: TypeImage;
+	currentIndex: number;
+	id: string;
+}) {
 	return (
 		<>
-			<div className='relative w-full flex-shrink-0 overflow-hidden'>
+			<div
+				className={`relative w-full flex-shrink-0 overflow-hidden snap-start origin-center`}
+				id={id}
+			>
 				<Image
 					src={image.src}
 					alt={`${image.alt} blur`}

@@ -8,8 +8,8 @@ export default function Thumbnails({ images }: { images: TypeImage[] }) {
 				images.length < 7 ? 'justify-center' : 'justify-start'
 			}`}
 		>
-			{images.map((image) => (
-				<ThumbnailItem key={image.src} image={image} />
+			{images.map((image, i) => (
+				<ThumbnailItem key={image.src} image={image} href={`#image-${i}`} />
 			))}
 		</ul>
 	);
