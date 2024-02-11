@@ -10,16 +10,13 @@ import ImageGallery from './gallery/ImageGallery';
 
 export default function ImageSlider({ images }: { images: TypeImage[] }) {
 	return (
-		<div className='p-4 flex flex-col gap-2'>
-			<div
-				className='container relative h-[360px] overflow-hidden
-			'
-			>
+		<div className='m-4 flex flex-col gap-2'>
+			<div className='container relative h-[360px] w-full overflow-hidden'>
 				<ImageGallery images={images} />
-				<div className='flex justify-between p-3 items-start'>
+				{/* <div className='flex justify-between p-3 items-start'>
 					<ImageIndex />
 					<FullscreenButton />
-				</div>
+				</div> */}
 				<div className='absolute top-1/2 transform -translate-y-1/2 w-full z-20 h-full'>
 					<NavControls />
 				</div>
