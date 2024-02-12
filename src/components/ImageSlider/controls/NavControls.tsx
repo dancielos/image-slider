@@ -5,10 +5,14 @@ import rightIcon from '../icons/chevron-right.svg';
 
 import Navigation from './Navigation';
 
-export default function NavControls() {
+export default function NavControls({
+	handleScroll,
+}: {
+	handleScroll: (action: 'prev' | 'next' | 'jump', index: number) => void;
+}) {
 	return (
 		<div className='flex justify-between h-full'>
-			<Navigation direction='left'>
+			<Navigation direction='prev' handleScroll={handleScroll}>
 				<Image
 					src={leftIcon}
 					alt={`image slider left nav`}
@@ -17,7 +21,7 @@ export default function NavControls() {
 					height={50}
 				/>
 			</Navigation>
-			<Navigation direction='right'>
+			<Navigation direction='next' handleScroll={handleScroll}>
 				<Image
 					src={rightIcon}
 					alt={`image slider right nav`}

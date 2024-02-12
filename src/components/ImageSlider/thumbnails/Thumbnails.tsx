@@ -1,8 +1,14 @@
 import Image from 'next/image';
-import { TypeImage } from '../types/TypeImage';
+import { NavigationAction, TypeImage } from '../types/types';
 import ThumbnailLink from './ThumbnailLink';
 
-export default function Thumbnails({ images }: { images: TypeImage[] }) {
+export default function Thumbnails({
+	images,
+	handleScroll,
+}: {
+	images: TypeImage[];
+	handleScroll: (action: NavigationAction, index: number) => void;
+}) {
 	return (
 		<ul
 			className={`flex flex-row gap-2 ${
@@ -10,7 +16,7 @@ export default function Thumbnails({ images }: { images: TypeImage[] }) {
 			}`}
 		>
 			{images.map((image, i) => (
-				<ThumbnailLink key={image.alt + i} i={i}>
+				<ThumbnailLink handleScroll={handleScroll} key={image.alt + i} i={i}>
 					<Image
 						src={image.src}
 						alt={image.alt}

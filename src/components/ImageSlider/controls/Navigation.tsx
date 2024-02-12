@@ -1,23 +1,24 @@
 import { ReactNode } from 'react';
 import { useDispatch } from 'react-redux';
 import { AppDispatch, useAppSelector } from '../redux/store';
-import { goToNext, goToPrev } from '../redux/imageSliderSlice';
-
-type Direction = 'left' | 'right';
+import { NavigationAction } from '../types/types';
+// import { goToNext, goToPrev } from '../redux/imageSliderSlice';
 
 export default function Navigation({
 	direction,
 	children,
+	handleScroll,
 }: {
-	direction: Direction;
+	direction: NavigationAction;
 	children: ReactNode;
+	handleScroll: (action: 'prev' | 'next' | 'jump', index: number) => void;
 }) {
-	const dispatch = useDispatch<AppDispatch>();
-	function handleNavClick(directionParam: Direction) {
-		if (directionParam === 'left') {
-			dispatch(goToPrev());
-		} else dispatch(goToNext());
-		// console.log({ currentIndex });
+	const currentIndex = useAppSelector(
+		(state) => state.imageSliderReducer.currentIndex
+	);
+	// const dispatch = useDispatch<AppDispatch>();
+	function handleNavClick(directionParam: NavigationAction) {
+		handleScroll(directionParam, currentIndex);
 	}
 	return (
 		<button

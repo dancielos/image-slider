@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { TypeImage } from '../types/TypeImage';
+import { TypeImage } from '../types/types';
 import { ForwardedRef, Ref, forwardRef } from 'react';
 
 const ImageGalleryItem = forwardRef(function ImageGalleryItem(

@@ -1,26 +1,20 @@
-import { ReactNode, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { AppDispatch, useAppSelector } from '../redux/store';
-import { jumpTo } from '../redux/imageSliderSlice';
+import { ReactNode } from 'react';
+import { NavigationAction } from '../types/types';
+// import { jumpTo } from '../redux/imageSliderSlice';
 
 export default function ThumbnailLink({
 	// image,
 	children,
 	// href,
+	handleScroll,
 	i,
 }: {
-	// image: TypeImage;
 	i: number;
 	children: ReactNode;
-	// href: Url;
+	handleScroll: (action: NavigationAction, index: number) => void;
 }) {
-	const dispatch = useDispatch<AppDispatch>();
-	// const currentIndex = useAppSelector(
-	// 	(state) => state.imageSliderReducer.currentIndex
-	// );
-
 	function handleThumbnailClick(index: number) {
-		dispatch(jumpTo(index));
+		handleScroll('jump', index);
 	}
 
 	return (
