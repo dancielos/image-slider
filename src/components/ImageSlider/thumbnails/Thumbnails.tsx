@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { NavigationAction, TypeImage } from '../types/types';
 import ThumbnailLink from './ThumbnailLink';
+import { useRef } from 'react';
 
 export default function Thumbnails({
 	images,
@@ -9,14 +10,68 @@ export default function Thumbnails({
 	images: TypeImage[];
 	handleScroll: (action: NavigationAction, index: number) => void;
 }) {
+	const thumbnailRef = useRef<HTMLUListElement>(null);
+	const thumbnailsRef = useRef() as React.MutableRefObject<
+		Map<number, HTMLLIElement>
+	>;
+
+	async function handleThumbnailScroll(
+		action: NavigationAction,
+		index: number
+	) {
+		const map = getMap();
+		const node = map.get(index);
+		const pos = node?.getClientRects()[0];
+
+		if (thumbnailRef) {
+			const thumbPos = thumbnailRef?.current!.getClientRects()[0];
+			// console.log(pos);
+			// console.log(thumbPos);
+
+			// console.log(thumbnailRef);
+
+			const scrollOffset = (pos?.x ?? 0) - thumbPos?.x;
+			// console.log(scrollOffset);
+			setTimeout(() => {
+				thumbnailRef.current!.scrollTo({
+					left: scrollOffset,
+					behavior: 'smooth',
+				});
+			}, 10);
+		}
+		setTimeout(() => {
+			handleScroll(action, index);
+		}, 10);
+	}
+
+	function getMap() {
+		if (!thumbnailsRef.current) {
+			thumbnailsRef.current = new Map();
+		}
+		return thumbnailsRef.current;
+	}
+
 	return (
 		<ul
-			className={`flex flex-row gap-2 ${
+			className={`flex flex-row gap-2 overflow-scroll ${
 				images.length < 7 ? 'justify-center' : 'justify-start'
 			}`}
+			ref={thumbnailRef}
 		>
 			{images.map((image, i) => (
-				<ThumbnailLink handleScroll={handleScroll} key={image.alt + i} i={i}>
+				<ThumbnailLink
+					handleScroll={handleThumbnailScroll}
+					key={image.alt + i}
+					i={i}
+					ref={(node) => {
+						const map = getMap();
+						if (node) {
+							map.set(i, node);
+						} else {
+							map.delete(i);
+						}
+					}}
+				>
 					<Image
 						src={image.src}
 						alt={image.alt}
