@@ -29,6 +29,10 @@ const images = [
 		src: 'https://image-slider-sample.s3.ca-central-1.amazonaws.com/stella-1600-900px.jpg',
 		alt: 'Stella the Dog',
 	},
+	{
+		src: 'https://image-slider-sample.s3.ca-central-1.amazonaws.com/hachiko-1366-768px.jpg',
+		alt: 'Hachiko lookalike',
+	},
 ];
 
 export default function Home() {

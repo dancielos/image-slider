@@ -4,17 +4,19 @@ import { ForwardedRef, Ref, forwardRef } from 'react';
 
 export default function ImageGalleryItem({
 	image,
-	currentIndex,
+	// currentIndex,
 	id,
+	className,
 }: {
 	image: TypeImage;
-	currentIndex: number;
+	// currentIndex: number;
 	id: string;
+	className: string;
 }) {
 	return (
 		<>
 			<div
-				className={`relative w-full flex-shrink-0 overflow-hidden snap-start origin-center`}
+				className={`relative w-full flex-shrink-0 overflow-hidden snap-start origin-center ${className}`}
 				id={id}
 				// ref={ref}
 			>
