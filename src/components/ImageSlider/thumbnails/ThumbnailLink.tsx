@@ -18,7 +18,7 @@ const ThumbnailLink = forwardRef<HTMLLIElement, ChildProps>(
 		},
 		ref
 	) {
-		function handleThumbnailClick(index: number, ref: HTMLLIElement) {
+		function handleThumbnailClick(index: number) {
 			handleScroll('jump', index);
 		}
 
@@ -32,7 +32,7 @@ const ThumbnailLink = forwardRef<HTMLLIElement, ChildProps>(
 				<button
 					// href={href}
 					className='block relative h-full w-full'
-					onClick={() => handleThumbnailClick(i, ref)}
+					onClick={() => handleThumbnailClick(i)}
 				>
 					{children}
 				</button>

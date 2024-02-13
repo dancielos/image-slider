@@ -21,24 +21,10 @@ export default function Thumbnails({
 	) {
 		const map = getMap();
 		const node = map.get(index);
-		const pos = node?.getClientRects()[0];
+		setTimeout(() => {
+			node?.scrollIntoView();
+		}, 10);
 
-		if (thumbnailRef) {
-			const thumbPos = thumbnailRef?.current!.getClientRects()[0];
-			// console.log(pos);
-			// console.log(thumbPos);
-
-			// console.log(thumbnailRef);
-
-			const scrollOffset = (pos?.x ?? 0) - thumbPos?.x;
-			// console.log(scrollOffset);
-			setTimeout(() => {
-				thumbnailRef.current!.scrollTo({
-					left: scrollOffset,
-					behavior: 'smooth',
-				});
-			}, 10);
-		}
 		setTimeout(() => {
 			handleScroll(action, index);
 		}, 10);
