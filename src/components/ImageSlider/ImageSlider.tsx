@@ -15,9 +15,9 @@ import { AppDispatch, useAppSelector } from './redux/store';
 
 function Layout({ images }: { images: TypeImage[] }) {
 	const dispatch = useDispatch<AppDispatch>();
-	const imagesRef = useRef() as React.MutableRefObject<
-		Map<number, HTMLDivElement>
-	>;
+	// const imagesRef = useRef() as React.MutableRefObject<
+	// 	Map<number, HTMLDivElement>
+	// >;
 
 	const thumbnailsRef = useRef() as React.MutableRefObject<
 		Map<number, HTMLLIElement>
@@ -44,12 +44,12 @@ function Layout({ images }: { images: TypeImage[] }) {
 
 		dispatch(scrollTo(goTo));
 
-		const thumbnailMap = getThumbnailsMap();
-		const thumbnailNode = thumbnailMap.get(goTo);
+		// const thumbnailMap = getThumbnailsMap();
+		// const thumbnailNode = thumbnailMap.get(goTo);
 
-		thumbnailNode?.scrollIntoView();
+		// thumbnailNode?.scrollIntoView();
 
-		const map = getImageMap();
+		const map = getThumbnailsMap();
 
 		const node = map.get(goTo);
 		// console.log(node);
@@ -60,12 +60,12 @@ function Layout({ images }: { images: TypeImage[] }) {
 		});
 	}
 
-	function getImageMap() {
-		if (!imagesRef.current) {
-			imagesRef.current = new Map();
-		}
-		return imagesRef.current;
-	}
+	// function getImageMap() {
+	// 	if (!imagesRef.current) {
+	// 		imagesRef.current = new Map();
+	// 	}
+	// 	return imagesRef.current;
+	// }
 
 	function getThumbnailsMap() {
 		if (!thumbnailsRef.current) {
@@ -77,7 +77,10 @@ function Layout({ images }: { images: TypeImage[] }) {
 	return (
 		<>
 			<div className='container relative h-[360px] w-full overflow-hidden'>
-				<ImageGallery images={images} getMap={getImageMap} ref={imagesRef} />
+				<ImageGallery
+					images={images}
+					//  getMap={getImageMap} ref={imagesRef}
+				/>
 				{/* <div className='flex justify-between p-3 items-start'>
 					<ImageIndex />
 					<FullscreenButton />

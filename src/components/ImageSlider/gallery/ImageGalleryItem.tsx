@@ -2,24 +2,21 @@ import Image from 'next/image';
 import { TypeImage } from '../types/types';
 import { ForwardedRef, Ref, forwardRef } from 'react';
 
-const ImageGalleryItem = forwardRef(function ImageGalleryItem(
-	{
-		image,
-		currentIndex,
-		id,
-	}: {
-		image: TypeImage;
-		currentIndex: number;
-		id: string;
-	},
-	ref: ForwardedRef<HTMLDivElement>
-) {
+export default function ImageGalleryItem({
+	image,
+	currentIndex,
+	id,
+}: {
+	image: TypeImage;
+	currentIndex: number;
+	id: string;
+}) {
 	return (
 		<>
 			<div
 				className={`relative w-full flex-shrink-0 overflow-hidden snap-start origin-center`}
 				id={id}
-				ref={ref}
+				// ref={ref}
 			>
 				<Image
 					src={image.src}
@@ -53,6 +50,4 @@ const ImageGalleryItem = forwardRef(function ImageGalleryItem(
 			</div>
 		</>
 	);
-});
-
-export default ImageGalleryItem;
+}
