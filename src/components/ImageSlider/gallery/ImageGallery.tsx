@@ -10,10 +10,7 @@ type ChildProps = {
 const ImageGallery = forwardRef<Map<number, HTMLDivElement>, ChildProps>(
 	function ImageGallery({ images, getMap }) {
 		return (
-			<div
-				className='flex flex-row h-full overflow-x-auto snap-x snap-mandatory scroll-smooth'
-				id='gallery'
-			>
+			<div className='flex flex-row h-full overflow-x-auto ' id='gallery'>
 				{images.map((image, i) => (
 					<ImageGalleryItem
 						key={image.alt + i}
