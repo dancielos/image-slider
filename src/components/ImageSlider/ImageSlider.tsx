@@ -18,6 +18,10 @@ function Layout({ images }: { images: TypeImage[] }) {
 	const imagesRef = useRef() as React.MutableRefObject<
 		Map<number, HTMLDivElement>
 	>;
+
+	const thumbnailsRef = useRef() as React.MutableRefObject<
+		Map<number, HTMLLIElement>
+	>;
 	// imagesRef.current = [];
 
 	const len = useAppSelector((state) => state.imageSliderReducer.len);
@@ -40,7 +44,12 @@ function Layout({ images }: { images: TypeImage[] }) {
 
 		dispatch(scrollTo(goTo));
 
-		const map = getMap();
+		const thumbnailMap = getThumbnailsMap();
+		const thumbnailNode = thumbnailMap.get(goTo);
+
+		thumbnailNode?.scrollIntoView();
+
+		const map = getImageMap();
 
 		const node = map.get(goTo);
 		// console.log(node);
@@ -51,17 +60,24 @@ function Layout({ images }: { images: TypeImage[] }) {
 		});
 	}
 
-	function getMap() {
+	function getImageMap() {
 		if (!imagesRef.current) {
 			imagesRef.current = new Map();
 		}
 		return imagesRef.current;
 	}
 
+	function getThumbnailsMap() {
+		if (!thumbnailsRef.current) {
+			thumbnailsRef.current = new Map();
+		}
+		return thumbnailsRef.current;
+	}
+
 	return (
 		<>
 			<div className='container relative h-[360px] w-full overflow-hidden'>
-				<ImageGallery images={images} getMap={getMap} ref={imagesRef} />
+				<ImageGallery images={images} getMap={getImageMap} ref={imagesRef} />
 				{/* <div className='flex justify-between p-3 items-start'>
 					<ImageIndex />
 					<FullscreenButton />
@@ -71,7 +87,12 @@ function Layout({ images }: { images: TypeImage[] }) {
 				</div>
 			</div>
 			<div className='container relative h-1/4 overflow-scroll'>
-				<Thumbnails images={images} handleScroll={handleScroll} />
+				<Thumbnails
+					images={images}
+					handleScroll={handleScroll}
+					getMap={getThumbnailsMap}
+					ref={thumbnailsRef}
+				/>
 			</div>
 		</>
 	);

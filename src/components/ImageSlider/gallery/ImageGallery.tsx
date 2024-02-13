@@ -8,7 +8,7 @@ type ChildProps = {
 };
 
 const ImageGallery = forwardRef<Map<number, HTMLDivElement>, ChildProps>(
-	function ImageGallery({ images, getMap }, ref) {
+	function ImageGallery({ images, getMap }) {
 		return (
 			<div
 				className='flex flex-row h-full overflow-x-auto snap-x snap-mandatory scroll-smooth'
