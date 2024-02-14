@@ -2,15 +2,17 @@ import Image from 'next/image';
 import { NavigationAction, TypeImage } from '../types/types';
 import ThumbnailLink from './ThumbnailLink';
 import { forwardRef } from 'react';
+import { useAppSelector } from '../redux/store';
 
 type ChildProps = {
-	images: TypeImage[];
 	handleScroll: (action: NavigationAction, index: number) => void;
 	getMap: () => Map<number, HTMLLIElement>;
 };
 
 const Thumbnails = forwardRef<Map<number, HTMLLIElement>, ChildProps>(
-	function Thumbnails({ images, handleScroll, getMap }, ref) {
+	function Thumbnails({ handleScroll, getMap }, ref) {
+		const images = useAppSelector((state) => state.imageSliderReducer.images);
+
 		return (
 			<div className='container relative h-1/4 overflow-scroll'>
 				<ul

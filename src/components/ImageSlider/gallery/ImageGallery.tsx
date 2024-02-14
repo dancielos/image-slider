@@ -2,19 +2,16 @@ import { TypeImage } from '../types/types';
 import ImageGalleryItem from './ImageGalleryItem';
 import { useAppSelector } from '../redux/store';
 
-type ChildProps = {
-	images: TypeImage[];
-};
-
 import styles from './ImageGallery.module.css';
 
-export default function ImageGallery({ images }: ChildProps) {
+export default function ImageGallery() {
 	const currentIndex = useAppSelector(
 		(state) => state.imageSliderReducer.currentIndex
 	);
 	const direction = useAppSelector(
 		(state) => state.imageSliderReducer.direction
 	);
+	const images = useAppSelector((state) => state.imageSliderReducer.images);
 
 	return (
 		<div className=' relative h-full w-full' id='gallery'>

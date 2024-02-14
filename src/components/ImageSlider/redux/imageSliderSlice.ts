@@ -1,13 +1,16 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { TypeImage } from '../types/types';
 
 type InitialState = {
 	currentIndex: number;
 	len: number;
+	images: TypeImage[];
 	direction: 'ltr' | 'rtl';
 };
 
 const initialState: InitialState = {
 	currentIndex: 0,
+	images: [],
 	len: 1,
 	direction: 'rtl',
 };
@@ -16,6 +19,10 @@ export const imageSliderSlice = createSlice({
 	name: 'imageSliderSlice',
 	initialState,
 	reducers: {
+		setImages: (state, action: PayloadAction<TypeImage[]>) => {
+			state.images = action.payload;
+			state.len = action.payload.length;
+		},
 		setLen: (state, action: PayloadAction<number>) => {
 			state.len = action.payload;
 		},
@@ -49,6 +56,6 @@ export const imageSliderSlice = createSlice({
 	},
 });
 
-export const { scrollTo, setLen } = imageSliderSlice.actions;
+export const { scrollTo, setLen, setImages } = imageSliderSlice.actions;
 // export const { goToNext, goToPrev, jumpTo, setLen } = imageSliderSlice.actions;
 export default imageSliderSlice.reducer;

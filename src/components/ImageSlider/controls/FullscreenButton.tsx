@@ -4,10 +4,10 @@ import fullScreenIcon from '../icons/fullscreen.svg';
 export default function FullscreenButton({
 	onToggleFullScreen,
 }: {
-	onToggleFullScreen: () => void;
+	onToggleFullScreen: (action: 'open' | 'close') => void;
 }) {
 	function handleButtonClick() {
-		onToggleFullScreen();
+		onToggleFullScreen('open');
 	}
 
 	return (

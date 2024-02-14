@@ -3,16 +3,15 @@
 import './ImageSlider.css';
 
 import Thumbnails from './thumbnails/Thumbnails';
-import NavControls from './controls/NavControls';
 import { NavigationAction, TypeImage } from './types/types';
 import ImageGallery from './gallery/ImageGallery';
 import { useEffect, useRef } from 'react';
-import { scrollTo, setLen } from './redux/imageSliderSlice';
+import { scrollTo, setImages, setLen } from './redux/imageSliderSlice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch, useAppSelector } from './redux/store';
-import ImageIndex from './ImageIndex';
-import FullscreenButton from './controls/FullscreenButton';
 import DefaultContainer from './DefaultContainer';
+import Controls from './controls/Controls';
+import FullscreenContainer from './FullScreenContainer';
 // import FullscreenContainer from './FullscreenContainer';
 
 type ChildProps = {
@@ -31,10 +30,14 @@ export default function Layout({ images, fullscreen = false }: ChildProps) {
 	);
 	const len = useAppSelector((state) => state.imageSliderReducer.len);
 
-	const Container = fullscreen ? FullscreenContainer : DefaultContainer;
+	// const Container = fullscreen ? FullscreenContainer : DefaultContainer;
+
+	// useEffect(() => {
+	// 	dispatch(setLen(images.length));
+	// }, [images, dispatch]);
 
 	useEffect(() => {
-		dispatch(setLen(images.length));
+		dispatch(setImages(images));
 	}, [images, dispatch]);
 
 	function handleScroll(action: NavigationAction, index: number) {
@@ -85,26 +88,39 @@ export default function Layout({ images, fullscreen = false }: ChildProps) {
 
 	// ----------------------------------------
 
-	function showFullscreen() {}
+	function toggleFullscreen() {}
 
 	return (
-		<DefaultContainer>
-			<div className='container relative h-[360px] w-full overflow-hidden'>
-				<ImageGallery images={images} />
-				<div className='absolute top-0 w-full'>
-					<div className='flex justify-between p-3 items-start'>
-						<ImageIndex currentIndex={currentIndex} len={len} />
-						<FullscreenButton onToggleFullScreen={showFullscreen} />
-					</div>
+		<>
+			<DefaultContainer>
+				<div className='container relative h-[360px] w-full overflow-hidden'>
+					<ImageGallery />
+					<Controls
+						handleScroll={handleScroll}
+						handleFullscreen={toggleFullscreen}
+					/>
 				</div>
-				<NavControls handleScroll={handleScroll} />
-			</div>
-			<Thumbnails
-				images={images}
-				handleScroll={handleScroll}
-				getMap={getThumbnailsMap}
-				ref={thumbnailsRef}
-			/>
-		</DefaultContainer>
+				<Thumbnails
+					handleScroll={handleScroll}
+					getMap={getThumbnailsMap}
+					ref={thumbnailsRef}
+				/>
+			</DefaultContainer>
+			{/* <dialog className='w-screen h-screen'>
+				<div className='container relative h-[360px] w-full overflow-hidden'>
+					<ImageGallery images={images} />
+					<Controls
+						handleScroll={handleScroll}
+						handleFullscreen={toggleFullscreen}
+					/>
+				</div>
+				<Thumbnails
+					images={images}
+					handleScroll={handleScroll}
+					getMap={getThumbnailsMap}
+					ref={thumbnailsRef}
+				/>
+			</dialog> */}
+		</>
 	);
 }
