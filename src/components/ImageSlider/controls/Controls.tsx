@@ -1,4 +1,4 @@
-import ImageIndex from '../ImageIndex';
+import ImageIndex from './ImageIndex';
 import { useAppSelector } from '../redux/store';
 import { NavigationAction } from '../types/types';
 import FullscreenButton from './FullscreenButton';
