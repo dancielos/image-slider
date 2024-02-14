@@ -12,6 +12,8 @@ import { useEffect, useRef } from 'react';
 import { scrollTo, setLen } from './redux/imageSliderSlice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch, useAppSelector } from './redux/store';
+import ImageIndex from './ImageIndex';
+import FullscreenButton from './controls/FullscreenButton';
 
 function Layout({ images }: { images: TypeImage[] }) {
 	const dispatch = useDispatch<AppDispatch>();
@@ -92,10 +94,12 @@ function Layout({ images }: { images: TypeImage[] }) {
 					images={images}
 					//  getMap={getImageMap} ref={imagesRef}
 				/>
-				{/* <div className='flex justify-between p-3 items-start'>
-					<ImageIndex />
-					<FullscreenButton />
-				</div> */}
+				<div className='absolute top-0 w-full'>
+					<div className='flex justify-between p-3 items-start'>
+						<ImageIndex />
+						<FullscreenButton />
+					</div>
+				</div>
 				<div className='absolute top-1/2 transform -translate-y-1/2 w-full z-20 h-full'>
 					<NavControls handleScroll={handleScroll} />
 				</div>
