@@ -16,7 +16,7 @@ export default function ImageGalleryItem({
 	return (
 		<>
 			<div
-				className={`relative w-full flex-shrink-0 overflow-hidden snap-start origin-center ${className}`}
+				className={`absolute h-full w-full overflow-hidden  ${className}`}
 				id={id}
 				// ref={ref}
 			>

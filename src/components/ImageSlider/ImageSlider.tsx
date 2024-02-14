@@ -23,7 +23,9 @@ function Layout({ images }: { images: TypeImage[] }) {
 		Map<number, HTMLLIElement>
 	>;
 	// imagesRef.current = [];
-
+	const currentIndex = useAppSelector(
+		(state) => state.imageSliderReducer.currentIndex
+	);
 	const len = useAppSelector((state) => state.imageSliderReducer.len);
 
 	useEffect(() => {
@@ -33,16 +35,25 @@ function Layout({ images }: { images: TypeImage[] }) {
 	}, [images]);
 
 	function handleScroll(action: NavigationAction, index: number) {
-		let goTo = -1;
+		let to = -1;
+		let direction: 'rtl' | 'ltr' = 'rtl';
 		if (action === 'prev') {
-			if (index === 0) goTo = len - 1;
-			else goTo = index - 1;
-		} else if (action === 'next') {
-			if (index === len - 1) goTo = 0;
-			else goTo = index + 1;
-		} else goTo = index;
+			if (index === 0) to = len - 1;
+			else to = index - 1;
 
-		dispatch(scrollTo(goTo));
+			direction = 'rtl';
+		} else if (action === 'next') {
+			if (index === len - 1) to = 0;
+			else to = index + 1;
+
+			direction = 'ltr';
+		} else {
+			to = index;
+			if (currentIndex < to) direction = 'ltr';
+			else direction = 'rtl';
+		}
+
+		dispatch(scrollTo({ to, direction }));
 
 		// const thumbnailMap = getThumbnailsMap();
 		// const thumbnailNode = thumbnailMap.get(goTo);
@@ -51,7 +62,7 @@ function Layout({ images }: { images: TypeImage[] }) {
 
 		const map = getThumbnailsMap();
 
-		const node = map.get(goTo);
+		const node = map.get(to);
 		// console.log(node);
 		node?.scrollIntoView({
 			behavior: 'smooth',

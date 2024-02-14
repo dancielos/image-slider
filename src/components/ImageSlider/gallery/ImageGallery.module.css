@@ -1,0 +1,33 @@
+.left-to-right {
+	animation-name: leftToRight;
+	animation-duration: 0.3s;
+}
+
+@keyframes leftToRight {
+	from {
+		transform: translateX(-100%);
+		visibility: hidden;
+	}
+
+	to {
+		transform: translateX(0%);
+		visibility: visible;
+	}
+}
+
+.right-to-left {
+	animation-name: rightToLeft;
+	animation-duration: 0.3s;
+}
+
+@keyframes rightToLeft {
+	from {
+		transform: translateX(100%);
+		visibility: hidden;
+	}
+
+	to {
+		transform: translateX(0%);
+		visibility: visible;
+	}
+}
