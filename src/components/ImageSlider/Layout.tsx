@@ -10,16 +10,15 @@ import { scrollTo, setImages } from './redux/imageSliderSlice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch, useAppSelector } from './redux/store';
 
-import DefaultContainer from './DefaultContainer';
+import DefaultContainer from './containers/DefaultContainer';
 
-import FullscreenContainer from './FullScreenContainer';
+import FullscreenContainer from './containers/FullscreenContainer';
 
 type ChildProps = {
 	images: TypeImage[];
-	fullscreen?: boolean;
 };
 
-export default function Layout({ images, fullscreen = false }: ChildProps) {
+export default function Layout({ images }: ChildProps) {
 	const thumbnailsRef = useRef() as React.MutableRefObject<
 		Map<number, HTMLLIElement>
 	>;
