@@ -3,7 +3,7 @@ import fullScreenIcon from '../icons/fullscreen.svg';
 
 export default function FullscreenButton() {
 	return (
-		<button className='relative z-30 bg-slate-950/50 p-2 rounded-[1px]'>
+		<button className='relative z-30 bg-slate-950/50 p-2 rounded-[1px] hidden sm:block'>
 			<Image
 				src={fullScreenIcon}
 				alt='enter full screen'
