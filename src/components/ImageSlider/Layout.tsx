@@ -6,12 +6,20 @@ import Thumbnails from './thumbnails/Thumbnails';
 import NavControls from './controls/NavControls';
 import { NavigationAction, TypeImage } from './types/types';
 import ImageGallery from './gallery/ImageGallery';
-import { useEffect, useRef } from 'react';
+import { ReactNode, useEffect, useRef } from 'react';
 import { scrollTo, setLen } from './redux/imageSliderSlice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch, useAppSelector } from './redux/store';
 import ImageIndex from './ImageIndex';
 import FullscreenButton from './controls/FullscreenButton';
+
+function DefaultParent({ children }: { children: ReactNode }) {
+	return (
+		<div className='container relative h-[360px] w-full overflow-hidden'>
+			{children}
+		</div>
+	);
+}
 
 export default function Layout({ images }: { images: TypeImage[] }) {
 	const thumbnailsRef = useRef() as React.MutableRefObject<
@@ -76,7 +84,7 @@ export default function Layout({ images }: { images: TypeImage[] }) {
 
 	return (
 		<>
-			<div className='container relative h-[360px] w-full overflow-hidden'>
+			<DefaultParent>
 				<ImageGallery images={images} />
 				<div className='absolute top-0 w-full'>
 					<div className='flex justify-between p-3 items-start'>
@@ -87,15 +95,15 @@ export default function Layout({ images }: { images: TypeImage[] }) {
 				<div className='absolute top-1/2 transform -translate-y-1/2 w-full z-20 h-full'>
 					<NavControls handleScroll={handleScroll} />
 				</div>
-			</div>
-			<div className='container relative h-1/4 overflow-scroll'>
+			</DefaultParent>
+			<DefaultParent className='container relative h-1/4 overflow-scroll'>
 				<Thumbnails
 					images={images}
 					handleScroll={handleScroll}
 					getMap={getThumbnailsMap}
 					ref={thumbnailsRef}
 				/>
-			</div>
+			</DefaultParent>
 		</>
 	);
 }
