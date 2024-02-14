@@ -6,22 +6,21 @@ import Thumbnails from './thumbnails/Thumbnails';
 import NavControls from './controls/NavControls';
 import { NavigationAction, TypeImage } from './types/types';
 import ImageGallery from './gallery/ImageGallery';
-import { ReactNode, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { scrollTo, setLen } from './redux/imageSliderSlice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch, useAppSelector } from './redux/store';
 import ImageIndex from './ImageIndex';
 import FullscreenButton from './controls/FullscreenButton';
+import DefaultContainer from './DefaultContainer';
+// import FullscreenContainer from './FullscreenContainer';
 
-function DefaultParent({ children }: { children: ReactNode }) {
-	return (
-		<div className='container relative h-[360px] w-full overflow-hidden'>
-			{children}
-		</div>
-	);
-}
+type ChildProps = {
+	images: TypeImage[];
+	fullscreen?: boolean;
+};
 
-export default function Layout({ images }: { images: TypeImage[] }) {
+export default function Layout({ images, fullscreen = false }: ChildProps) {
 	const thumbnailsRef = useRef() as React.MutableRefObject<
 		Map<number, HTMLLIElement>
 	>;
@@ -31,6 +30,8 @@ export default function Layout({ images }: { images: TypeImage[] }) {
 		(state) => state.imageSliderReducer.currentIndex
 	);
 	const len = useAppSelector((state) => state.imageSliderReducer.len);
+
+	const Container = fullscreen ? FullscreenContainer : DefaultContainer;
 
 	useEffect(() => {
 		dispatch(setLen(images.length));
@@ -82,28 +83,28 @@ export default function Layout({ images }: { images: TypeImage[] }) {
 		return thumbnailsRef.current;
 	}
 
+	// ----------------------------------------
+
+	function showFullscreen() {}
+
 	return (
-		<>
-			<DefaultParent>
+		<DefaultContainer>
+			<div className='container relative h-[360px] w-full overflow-hidden'>
 				<ImageGallery images={images} />
 				<div className='absolute top-0 w-full'>
 					<div className='flex justify-between p-3 items-start'>
 						<ImageIndex currentIndex={currentIndex} len={len} />
-						<FullscreenButton />
+						<FullscreenButton onToggleFullScreen={showFullscreen} />
 					</div>
 				</div>
-				<div className='absolute top-1/2 transform -translate-y-1/2 w-full z-20 h-full'>
-					<NavControls handleScroll={handleScroll} />
-				</div>
-			</DefaultParent>
-			<DefaultParent className='container relative h-1/4 overflow-scroll'>
-				<Thumbnails
-					images={images}
-					handleScroll={handleScroll}
-					getMap={getThumbnailsMap}
-					ref={thumbnailsRef}
-				/>
-			</DefaultParent>
-		</>
+				<NavControls handleScroll={handleScroll} />
+			</div>
+			<Thumbnails
+				images={images}
+				handleScroll={handleScroll}
+				getMap={getThumbnailsMap}
+				ref={thumbnailsRef}
+			/>
+		</DefaultContainer>
 	);
 }

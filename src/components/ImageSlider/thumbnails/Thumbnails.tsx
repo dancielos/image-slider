@@ -12,43 +12,45 @@ type ChildProps = {
 const Thumbnails = forwardRef<Map<number, HTMLLIElement>, ChildProps>(
 	function Thumbnails({ images, handleScroll, getMap }, ref) {
 		return (
-			<ul
-				className={`py-1 flex flex-row gap-2 overflow-scroll ${
-					images.length < 7 ? 'justify-center' : 'justify-start'
-				}`}
-			>
-				{images.map((image, i) => (
-					<ThumbnailLink
-						handleScroll={handleScroll}
-						key={image.alt + i}
-						i={i}
-						ref={(node) => {
-							const map = getMap();
-							if (node) {
-								map.set(i, node);
-							} else {
-								// TODO:
-								// why should it be deleted?
-								// this is the code from react.dev btw
-								// https://react.dev/learn/manipulating-the-dom-with-refs#how-to-manage-a-list-of-refs-using-a-ref-callback
-								map.delete(i);
-							}
-						}}
-					>
-						<Image
-							src={image.src}
-							alt={image.alt}
-							style={{
-								objectFit: 'cover',
+			<div className='container relative h-1/4 overflow-scroll'>
+				<ul
+					className={`py-1 flex flex-row gap-2 overflow-scroll ${
+						images.length < 7 ? 'justify-center' : 'justify-start'
+					}`}
+				>
+					{images.map((image, i) => (
+						<ThumbnailLink
+							handleScroll={handleScroll}
+							key={image.alt + i}
+							i={i}
+							ref={(node) => {
+								const map = getMap();
+								if (node) {
+									map.set(i, node);
+								} else {
+									// TODO:
+									// why should it be deleted?
+									// this is the code from react.dev btw
+									// https://react.dev/learn/manipulating-the-dom-with-refs#how-to-manage-a-list-of-refs-using-a-ref-callback
+									map.delete(i);
+								}
 							}}
-							quality={30}
-							className='rounded-[1px]'
-							fill
-							sizes='(min-width: 0px) 25vw'
-						/>
-					</ThumbnailLink>
-				))}
-			</ul>
+						>
+							<Image
+								src={image.src}
+								alt={image.alt}
+								style={{
+									objectFit: 'cover',
+								}}
+								quality={30}
+								className='rounded-[1px]'
+								fill
+								sizes='(min-width: 0px) 25vw'
+							/>
+						</ThumbnailLink>
+					))}
+				</ul>
+			</div>
 		);
 	}
 );

@@ -7,9 +7,7 @@ import { TypeImage } from './types/types';
 export default function ImageSlider({ images }: { images: TypeImage[] }) {
 	return (
 		<ImageSliderProvider>
-			<div className='m-4 flex flex-col gap-2'>
-				<Layout images={images} />
-			</div>
+			<Layout images={images} />
 		</ImageSliderProvider>
 	);
 }
