@@ -13,7 +13,7 @@ const Thumbnails = forwardRef<Map<number, HTMLLIElement>, ChildProps>(
 	function Thumbnails({ images, handleScroll, getMap }, ref) {
 		return (
 			<ul
-				className={`flex flex-row gap-2 overflow-scroll ${
+				className={`py-1 flex flex-row gap-2 overflow-scroll ${
 					images.length < 7 ? 'justify-center' : 'justify-start'
 				}`}
 			>
