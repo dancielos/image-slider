@@ -1,24 +1,22 @@
-import { ReactNode, useRef } from 'react';
+import { ReactNode, forwardRef } from 'react';
 
-export default function FullscreenContainer({
-	children,
-}: {
+import styles from './FullscreenContainer.module.css';
+
+type ChildProps = {
 	children: ReactNode;
-}) {
-	const dialogRef = useRef<HTMLDialogElement>(null);
+};
 
-	function showFullscreen() {
-		dialogRef.current?.showModal();
+const FullscreenContainer = forwardRef<HTMLDialogElement, ChildProps>(
+	function FullscreenContainer({ children }, ref) {
+		return (
+			<dialog
+				className={`w-screen h-screen backdrop:bg-gray-50 ${styles['dialog']}`}
+				ref={ref}
+			>
+				{children}
+			</dialog>
+		);
 	}
+);
 
-	function hideFullScreen() {
-		dialogRef.current?.close();
-	}
-
-	return (
-		<dialog ref={dialogRef} className='w-screen h-screen'>
-			{children}
-			<button onClick={hideFullScreen}>Close</button>
-		</dialog>
-	);
-}
+export default FullscreenContainer;

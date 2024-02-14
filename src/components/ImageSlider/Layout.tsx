@@ -5,16 +5,14 @@ import './ImageSlider.css';
 import Thumbnails from './thumbnails/Thumbnails';
 import { NavigationAction, TypeImage } from './types/types';
 import ImageGallery from './gallery/ImageGallery';
-import { useEffect, useRef, useState } from 'react';
-import { scrollTo, setImages, setLen } from './redux/imageSliderSlice';
+import { useEffect, useRef } from 'react';
+import { scrollTo, setImages } from './redux/imageSliderSlice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch, useAppSelector } from './redux/store';
+
 import DefaultContainer from './DefaultContainer';
-import Controls from './controls/Controls';
 
-// import FullscreenContainer from './FullscreenContainer';
-
-import styles from './Layout.module.css';
+import FullscreenContainer from './FullScreenContainer';
 
 type ChildProps = {
 	images: TypeImage[];
@@ -112,10 +110,7 @@ export default function Layout({ images, fullscreen = false }: ChildProps) {
 					ref={thumbnailsRef}
 				/>
 			</DefaultContainer>
-			<dialog
-				className={`w-screen h-screen backdrop:bg-gray-50 ${styles['dialog']}`}
-				ref={dialogRef}
-			>
+			<FullscreenContainer ref={dialogRef}>
 				<ImageGallery
 					fullscreen
 					handleScroll={handleScroll}
@@ -127,7 +122,7 @@ export default function Layout({ images, fullscreen = false }: ChildProps) {
 					getMap={getThumbnailsFMap}
 					ref={thumbnailsFRef}
 				/>
-			</dialog>
+			</FullscreenContainer>
 		</>
 	);
 }
