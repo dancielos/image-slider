@@ -23,6 +23,9 @@ export default function Layout({ images, fullscreen = false }: ChildProps) {
 	const thumbnailsRef = useRef() as React.MutableRefObject<
 		Map<number, HTMLLIElement>
 	>;
+	const thumbnailsFRef = useRef() as React.MutableRefObject<
+		Map<number, HTMLLIElement>
+	>;
 	const dispatch = useDispatch<AppDispatch>();
 
 	const currentIndex = useAppSelector(
@@ -86,9 +89,25 @@ export default function Layout({ images, fullscreen = false }: ChildProps) {
 		return thumbnailsRef.current;
 	}
 
-	// ----------------------------------------
+	function getThumbnailsFMap() {
+		console.log('get thumbnails map');
+		if (!thumbnailsFRef.current) {
+			thumbnailsFRef.current = new Map();
+		}
+		return thumbnailsFRef.current;
+	}
 
-	function toggleFullscreen() {}
+	// ----------------------------------------
+	// TODO: refactor the modal
+	const dialogRef = useRef<HTMLDialogElement>(null);
+
+	function showFullscreen() {
+		dialogRef.current?.showModal();
+	}
+
+	function hideFullScreen() {
+		dialogRef.current?.close();
+	}
 
 	return (
 		<>
@@ -97,7 +116,7 @@ export default function Layout({ images, fullscreen = false }: ChildProps) {
 					<ImageGallery />
 					<Controls
 						handleScroll={handleScroll}
-						handleFullscreen={toggleFullscreen}
+						handleFullscreen={showFullscreen}
 					/>
 				</div>
 				<Thumbnails
@@ -106,21 +125,23 @@ export default function Layout({ images, fullscreen = false }: ChildProps) {
 					ref={thumbnailsRef}
 				/>
 			</DefaultContainer>
-			{/* <dialog className='w-screen h-screen'>
-				<div className='container relative h-[360px] w-full overflow-hidden'>
-					<ImageGallery images={images} />
+
+			<dialog className='w-screen h-screen' ref={dialogRef}>
+				<div className='container relative h-4/5 min-w-full overflow-hidden'>
+					<ImageGallery fullscreen />
 					<Controls
+						fullscreen
 						handleScroll={handleScroll}
-						handleFullscreen={toggleFullscreen}
+						handleFullscreen={hideFullScreen}
 					/>
 				</div>
 				<Thumbnails
-					images={images}
+					fullscreen
 					handleScroll={handleScroll}
-					getMap={getThumbnailsMap}
-					ref={thumbnailsRef}
+					getMap={getThumbnailsFMap}
+					ref={thumbnailsFRef}
 				/>
-			</dialog> */}
+			</dialog>
 		</>
 	);
 }

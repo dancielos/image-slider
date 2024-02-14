@@ -7,17 +7,24 @@ import { useAppSelector } from '../redux/store';
 type ChildProps = {
 	handleScroll: (action: NavigationAction, index: number) => void;
 	getMap: () => Map<number, HTMLLIElement>;
+	fullscreen?: boolean;
 };
 
 const Thumbnails = forwardRef<Map<number, HTMLLIElement>, ChildProps>(
-	function Thumbnails({ handleScroll, getMap }, ref) {
+	function Thumbnails({ handleScroll, getMap, fullscreen }, ref) {
 		const images = useAppSelector((state) => state.imageSliderReducer.images);
 
 		return (
-			<div className='container relative h-1/4 overflow-scroll'>
+			<div
+				className={`container relative ${fullscreen ? 'h-1/5 min-w-full' : ''}`}
+			>
 				<ul
-					className={`py-1 flex flex-row gap-2 overflow-scroll ${
-						images.length < 7 ? 'justify-center' : 'justify-start'
+					className={`py-1 flex flex-row gap-2 overflow-x-scroll ${
+						fullscreen
+							? 'justify-center'
+							: images.length < 7
+							? 'justify-center'
+							: 'justify-start'
 					}`}
 				>
 					{images.map((image, i) => (

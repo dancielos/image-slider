@@ -4,7 +4,7 @@ import { useAppSelector } from '../redux/store';
 
 import styles from './ImageGallery.module.css';
 
-export default function ImageGallery() {
+export default function ImageGallery({ fullscreen }: { fullscreen?: boolean }) {
 	const currentIndex = useAppSelector(
 		(state) => state.imageSliderReducer.currentIndex
 	);
@@ -20,6 +20,7 @@ export default function ImageGallery() {
 					key={image.alt + i}
 					image={image}
 					id={`#image-${i}`}
+					fullscreen={fullscreen}
 					className={`${
 						currentIndex === i
 							? direction === 'ltr'

@@ -7,11 +7,13 @@ import NavControls from './NavControls';
 type ChildProps = {
 	handleFullscreen: (action: 'open' | 'close') => void;
 	handleScroll: (action: NavigationAction, index: number) => void;
+	fullscreen?: boolean;
 };
 
 export default function Controls({
 	handleScroll,
 	handleFullscreen,
+	fullscreen,
 }: ChildProps) {
 	const currentIndex = useAppSelector(
 		(state) => state.imageSliderReducer.currentIndex
@@ -23,7 +25,10 @@ export default function Controls({
 			<div className='absolute top-0 w-full'>
 				<div className='flex justify-between p-3 items-start'>
 					<ImageIndex currentIndex={currentIndex} len={len} />
-					<FullscreenButton onToggleFullScreen={handleFullscreen} />
+					<FullscreenButton
+						onToggleFullScreen={handleFullscreen}
+						isFullscreen={fullscreen}
+					/>
 				</div>
 			</div>
 			<NavControls handleScroll={handleScroll} />

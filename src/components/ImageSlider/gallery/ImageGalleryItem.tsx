@@ -1,15 +1,19 @@
 import Image from 'next/image';
 import { TypeImage } from '../types/types';
 
+type ChildProps = {
+	image: TypeImage;
+	id: string;
+	className: string;
+	fullscreen?: boolean;
+};
+
 export default function ImageGalleryItem({
 	image,
 	id,
 	className,
-}: {
-	image: TypeImage;
-	id: string;
-	className: string;
-}) {
+	fullscreen,
+}: ChildProps) {
 	return (
 		<div
 			className={`absolute h-full w-full overflow-hidden  ${className}`}
@@ -36,6 +40,7 @@ export default function ImageGalleryItem({
 				// width={720}
 				// height={360}
 				fill
+				quality={fullscreen ? 100 : 75}
 				sizes='(min-width: 0px) 100vw'
 				style={{
 					objectFit: 'contain',
