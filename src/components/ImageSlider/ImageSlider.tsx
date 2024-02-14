@@ -8,18 +8,18 @@ import Thumbnails from './thumbnails/Thumbnails';
 import NavControls from './controls/NavControls';
 import { NavigationAction, TypeImage } from './types/types';
 import ImageGallery from './gallery/ImageGallery';
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { scrollTo, setLen } from './redux/imageSliderSlice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch, useAppSelector } from './redux/store';
 import ImageIndex from './ImageIndex';
 
 function Layout({ images }: { images: TypeImage[] }) {
-	const dispatch = useDispatch<AppDispatch>();
-
 	const thumbnailsRef = useRef() as React.MutableRefObject<
 		Map<number, HTMLLIElement>
 	>;
+	const dispatch = useDispatch<AppDispatch>();
+
 	const currentIndex = useAppSelector(
 		(state) => state.imageSliderReducer.currentIndex
 	);
@@ -27,7 +27,7 @@ function Layout({ images }: { images: TypeImage[] }) {
 
 	useEffect(() => {
 		dispatch(setLen(images.length));
-	}, [images]);
+	}, [images, dispatch]);
 
 	function handleScroll(action: NavigationAction, index: number) {
 		let to = -1;
@@ -60,7 +60,15 @@ function Layout({ images }: { images: TypeImage[] }) {
 		});
 	}
 
+	// const getThumbnailsMap = useCallback(() => {
+	// 	console.log('get thumbnails map');
+	// 	if (!thumbnailsRef.current) {
+	// 		thumbnailsRef.current = new Map();
+	// 	}
+	// 	return thumbnailsRef.current;
+	// }, [thumbnailsRef]);
 	function getThumbnailsMap() {
+		console.log('get thumbnails map');
 		if (!thumbnailsRef.current) {
 			thumbnailsRef.current = new Map();
 		}

@@ -27,6 +27,10 @@ const Thumbnails = forwardRef<Map<number, HTMLLIElement>, ChildProps>(
 							if (node) {
 								map.set(i, node);
 							} else {
+								// TODO:
+								// why should it be deleted?
+								// this is the code from react.dev btw
+								// https://react.dev/learn/manipulating-the-dom-with-refs#how-to-manage-a-list-of-refs-using-a-ref-callback
 								map.delete(i);
 							}
 						}}
