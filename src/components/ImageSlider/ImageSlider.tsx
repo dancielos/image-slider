@@ -96,7 +96,7 @@ function Layout({ images }: { images: TypeImage[] }) {
 				/>
 				<div className='absolute top-0 w-full'>
 					<div className='flex justify-between p-3 items-start'>
-						<ImageIndex />
+						<ImageIndex currentIndex={currentIndex} len={len} />
 						<FullscreenButton />
 					</div>
 				</div>
