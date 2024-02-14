@@ -71,24 +71,16 @@ export default function Layout({ images, fullscreen = false }: ChildProps) {
 		});
 	}
 
-	// const getThumbnailsMap = useCallback(() => {
-	// 	console.log('get thumbnails map');
-	// 	if (!thumbnailsRef.current) {
-	// 		thumbnailsRef.current = new Map();
-	// 	}
-	// 	return thumbnailsRef.current;
-	// }, [thumbnailsRef]);
-
 	function getThumbnailsMap() {
-		// console.log('get thumbnails map');
 		if (!thumbnailsRef.current) {
 			thumbnailsRef.current = new Map();
 		}
 		return thumbnailsRef.current;
 	}
 
+	// The refs should be unique per element
+	// Hence, different refs for fullscreen thumbnails
 	function getThumbnailsFMap() {
-		// console.log('get thumbnails map');
 		if (!thumbnailsFRef.current) {
 			thumbnailsFRef.current = new Map();
 		}
@@ -96,7 +88,7 @@ export default function Layout({ images, fullscreen = false }: ChildProps) {
 	}
 
 	// ----------------------------------------
-	// TODO: refactor the modal
+
 	const dialogRef = useRef<HTMLDialogElement>(null);
 
 	function showFullscreen() {
@@ -110,13 +102,10 @@ export default function Layout({ images, fullscreen = false }: ChildProps) {
 	return (
 		<>
 			<DefaultContainer>
-				<div className='container relative h-[360px] w-full overflow-hidden'>
-					<ImageGallery />
-					<Controls
-						handleScroll={handleScroll}
-						handleFullscreen={showFullscreen}
-					/>
-				</div>
+				<ImageGallery
+					handleScroll={handleScroll}
+					handleFullscreen={showFullscreen}
+				/>
 				<Thumbnails
 					handleScroll={handleScroll}
 					getMap={getThumbnailsMap}
@@ -127,14 +116,11 @@ export default function Layout({ images, fullscreen = false }: ChildProps) {
 				className={`w-screen h-screen backdrop:bg-gray-50 ${styles['dialog']}`}
 				ref={dialogRef}
 			>
-				<div className='container relative h-4/5 min-w-full overflow-hidden'>
-					<ImageGallery fullscreen />
-					<Controls
-						fullscreen
-						handleScroll={handleScroll}
-						handleFullscreen={hideFullScreen}
-					/>
-				</div>
+				<ImageGallery
+					fullscreen
+					handleScroll={handleScroll}
+					handleFullscreen={hideFullScreen}
+				/>
 				<Thumbnails
 					fullscreen
 					handleScroll={handleScroll}
