@@ -17,7 +17,9 @@ export default function FullscreenButton({
 
 	return (
 		<button
-			className='relative z-30 bg-slate-950/50 p-2 rounded-[1px] hidden sm:block'
+			className={`relative z-30 bg-slate-950/50 p-2 rounded-[1px] ${
+				isFullscreen ? 'block' : 'hidden sm:block'
+			}`}
 			onClick={handleButtonClick}
 		>
 			{isFullscreen ? (

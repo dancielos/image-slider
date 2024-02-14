@@ -5,7 +5,7 @@ import './ImageSlider.css';
 import Thumbnails from './thumbnails/Thumbnails';
 import { NavigationAction, TypeImage } from './types/types';
 import ImageGallery from './gallery/ImageGallery';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { scrollTo, setImages, setLen } from './redux/imageSliderSlice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch, useAppSelector } from './redux/store';
@@ -33,17 +33,12 @@ export default function Layout({ images, fullscreen = false }: ChildProps) {
 	);
 	const len = useAppSelector((state) => state.imageSliderReducer.len);
 
-	// const Container = fullscreen ? FullscreenContainer : DefaultContainer;
-
-	// useEffect(() => {
-	// 	dispatch(setLen(images.length));
-	// }, [images, dispatch]);
-
 	useEffect(() => {
 		dispatch(setImages(images));
 	}, [images, dispatch]);
 
 	function handleScroll(action: NavigationAction, index: number) {
+		if (action === 'jump' && currentIndex === index) return;
 		let to = -1;
 		let direction: 'rtl' | 'ltr' = 'rtl';
 		if (action === 'prev') {
@@ -81,8 +76,9 @@ export default function Layout({ images, fullscreen = false }: ChildProps) {
 	// 	}
 	// 	return thumbnailsRef.current;
 	// }, [thumbnailsRef]);
+
 	function getThumbnailsMap() {
-		console.log('get thumbnails map');
+		// console.log('get thumbnails map');
 		if (!thumbnailsRef.current) {
 			thumbnailsRef.current = new Map();
 		}
@@ -90,7 +86,7 @@ export default function Layout({ images, fullscreen = false }: ChildProps) {
 	}
 
 	function getThumbnailsFMap() {
-		console.log('get thumbnails map');
+		// console.log('get thumbnails map');
 		if (!thumbnailsFRef.current) {
 			thumbnailsFRef.current = new Map();
 		}
