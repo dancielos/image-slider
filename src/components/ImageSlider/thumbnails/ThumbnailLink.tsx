@@ -36,7 +36,7 @@ const ThumbnailLink = forwardRef<HTMLLIElement, ChildProps>(
 			// >
 			<li
 				className={`relative h-36 min-w-36 sm:h-24 sm:min-w-24  duration-300 ${
-					currentIndex === i ? 'border-4 border-sky-500' : ''
+					currentIndex === i ? 'border-4 border-orange-300' : ''
 				}`}
 				ref={ref}
 			>
