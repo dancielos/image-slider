@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { NavigationAction, TypeImage } from '../types/types';
 import ThumbnailLink from './ThumbnailLink';
-import { RefObject, forwardRef, useRef } from 'react';
+import { forwardRef } from 'react';
 
 type ChildProps = {
 	images: TypeImage[];

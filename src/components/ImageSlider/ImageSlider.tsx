@@ -13,26 +13,19 @@ import { scrollTo, setLen } from './redux/imageSliderSlice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch, useAppSelector } from './redux/store';
 import ImageIndex from './ImageIndex';
-// import FullscreenButton from './controls/FullscreenButton';
 
 function Layout({ images }: { images: TypeImage[] }) {
 	const dispatch = useDispatch<AppDispatch>();
-	// const imagesRef = useRef() as React.MutableRefObject<
-	// 	Map<number, HTMLDivElement>
-	// >;
 
 	const thumbnailsRef = useRef() as React.MutableRefObject<
 		Map<number, HTMLLIElement>
 	>;
-	// imagesRef.current = [];
 	const currentIndex = useAppSelector(
 		(state) => state.imageSliderReducer.currentIndex
 	);
 	const len = useAppSelector((state) => state.imageSliderReducer.len);
 
 	useEffect(() => {
-		// console.log('1ST use effect being called');
-		// initialize the slice length for computation later
 		dispatch(setLen(images.length));
 	}, [images]);
 
@@ -57,28 +50,15 @@ function Layout({ images }: { images: TypeImage[] }) {
 
 		dispatch(scrollTo({ to, direction }));
 
-		// const thumbnailMap = getThumbnailsMap();
-		// const thumbnailNode = thumbnailMap.get(goTo);
-
-		// thumbnailNode?.scrollIntoView();
-
 		const map = getThumbnailsMap();
 
 		const node = map.get(to);
-		// console.log(node);
 		node?.scrollIntoView({
 			behavior: 'smooth',
 			block: 'nearest',
 			inline: 'center',
 		});
 	}
-
-	// function getImageMap() {
-	// 	if (!imagesRef.current) {
-	// 		imagesRef.current = new Map();
-	// 	}
-	// 	return imagesRef.current;
-	// }
 
 	function getThumbnailsMap() {
 		if (!thumbnailsRef.current) {
@@ -90,10 +70,7 @@ function Layout({ images }: { images: TypeImage[] }) {
 	return (
 		<>
 			<div className='container relative h-[360px] w-full overflow-hidden'>
-				<ImageGallery
-					images={images}
-					//  getMap={getImageMap} ref={imagesRef}
-				/>
+				<ImageGallery images={images} />
 				<div className='absolute top-0 w-full'>
 					<div className='flex justify-between p-3 items-start'>
 						<ImageIndex currentIndex={currentIndex} len={len} />
