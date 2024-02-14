@@ -11,8 +11,10 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch, useAppSelector } from './redux/store';
 import DefaultContainer from './DefaultContainer';
 import Controls from './controls/Controls';
-import FullscreenContainer from './FullScreenContainer';
+
 // import FullscreenContainer from './FullscreenContainer';
+
+import styles from './Layout.module.css';
 
 type ChildProps = {
 	images: TypeImage[];
@@ -121,8 +123,10 @@ export default function Layout({ images, fullscreen = false }: ChildProps) {
 					ref={thumbnailsRef}
 				/>
 			</DefaultContainer>
-
-			<dialog className='w-screen h-screen' ref={dialogRef}>
+			<dialog
+				className={`w-screen h-screen backdrop:bg-gray-50 ${styles['dialog']}`}
+				ref={dialogRef}
+			>
 				<div className='container relative h-4/5 min-w-full overflow-hidden'>
 					<ImageGallery fullscreen />
 					<Controls
