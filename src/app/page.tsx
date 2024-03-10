@@ -38,22 +38,24 @@ const images = [
 export default function Home() {
 	return (
 		<>
-			<h1
-				style={{
-					fontSize: '1.6rem',
-					textAlign: 'center',
-				}}
-			>
-				A sample image slider
-			</h1>
 			<main
 				style={{
 					width: '720px',
 					// height: '480px',
-					// backgroundColor: '#e5dbff',
+					// backgroundColor: '#000',
 					margin: '72px auto',
 				}}
 			>
+				<h1
+					style={{
+						fontSize: '2.8rem',
+						fontWeight: '700',
+						textAlign: 'center',
+						color: '#66fcf1',
+					}}
+				>
+					Image Slider by Dan
+				</h1>
 				<ImageSlider images={images} />
 			</main>
 		</>
